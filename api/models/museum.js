@@ -1,6 +1,7 @@
 const Knex  = require('knex');
 const { Model } = require('objection')
 const Armodel = require ('./armodel');
+const Target = require('./target');
 
 
 class Museum extends Model {
