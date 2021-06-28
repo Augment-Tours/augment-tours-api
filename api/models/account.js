@@ -3,12 +3,9 @@ const { Model } = require('objection')
 const Favorite= require('./favorite');
 const Armodel = require ('./armodel');
 
-const connection = require('../../knexfile');
 const bcrypt = require('bcrypt');
 
-const knexConnection = Knex(connection)
 
-Model.knex(knexConnection);
 
 class Account extends Model {
     static get tableName () {

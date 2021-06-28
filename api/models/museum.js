@@ -2,12 +2,7 @@ const Knex  = require('knex');
 const { Model } = require('objection')
 const Armodel = require ('./armodel');
 
-const connection = require('../../knexfile');
-const Target = require('./target');
 
-const knexConnection = Knex(connection)
-
-Model.knex(knexConnection);
 class Museum extends Model {
     static get tableName () {
       return 'museums';

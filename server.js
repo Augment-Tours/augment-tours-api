@@ -4,6 +4,20 @@ const armodels = require('./api/controllers/armodelController');
 const favorites = require('./api/controllers/favoriteController');
 const targets = require('./api/controllers/targetController');
 
+
+const Knex = require('knex');
+const {Model} = require("objection");
+const knexfile = require('./knexfile');
+
+const env = process.env.NODE_ENV || 'development';
+const configOptions = knexfile[env];
+
+
+
+const db = Knex(configOptions);
+
+Model.knex(db)
+
 var bodyParser = require("body-parser");
 var express = require('express'),
   app = express(),

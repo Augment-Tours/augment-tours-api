@@ -4,11 +4,7 @@ const Favorite= require('./favorite');
 const Account = require('./armodel');
 const Museum =  require ('./museum');
 
-const connection = require('../../knexfile')
 
-const knexConnection = Knex(connection)
-
-Model.knex(knexConnection);
 class Target extends Model {
     static get tableName () {
       return 'targets';
