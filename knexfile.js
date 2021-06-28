@@ -1,5 +1,5 @@
 const pg = require('pg')
-pg.defaults.ssl=true;
+//pg.defaults.ssl=true;
 
 module.exports = {
   development:{
@@ -22,7 +22,7 @@ module.exports = {
   production: {
     client: 'pg',
     connection: {
-      connectionString: process.env.DATABASE_URL+'?ssl=true',
+      connectionString: process.env.DATABASE_URL,
       ssl: { rejectUnauthorized: false },
     },
     pool: {
