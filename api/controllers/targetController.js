@@ -15,6 +15,16 @@ router.get('/:id', async (req, res) => {
     
   })
 
+router.get('/museums/:museums_id',async(req,res) => { 
+    try{ 
+        const targets = await Target.getTargetsByMuseum(req.params.museums_id);
+        res.json(targets);
+    }
+    catch(err){
+        console.log('error '+err);
+    }
+})
+
   router.post('/', async(req,res)=>{
     try{
         const newTarget = req.body;

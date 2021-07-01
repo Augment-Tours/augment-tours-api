@@ -32,6 +32,14 @@ class Target extends Model {
     return target;
   };
 
+  exports.getTargetsByMuseum = async(museumId)=>{
+    const targets = await Target
+      .query()
+      .where('museums_id',museumId);
+
+    return targets;
+  }
+
   exports.addTarget = async (targetInformation,targetModel ,targetXlocation,targetYlocation,targetFloor,museumId)=>{
     const museum = await Museum.getMuseum(museumId);
     if(!museum){
