@@ -17,7 +17,8 @@ router.get('/:id', async (req, res) => {
 
 router.get('/:museumId/:floor', async(req,res)=>{
     try{
-        const armodels = Armodel.getArmodelsbyMuseumFloor(req.params.museumId,req.params.floor);
+        const armodels = await Armodel.getArmodelsbyMuseumFloor(req.params.museumId,req.params.floor);
+        console.log(armodels);
         res.json(armodels);
     }
     catch(err){
