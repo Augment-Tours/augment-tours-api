@@ -41,10 +41,13 @@ class Armodel extends Model {
   };
 
   exports.getArmodelsbyMuseumFloor = async(museumId, floor) => {
+    console.log(museumId);
+    console.log(floor);
     const arModels = await Armodel
     .query()
-    .where('museumId',museumId)
+    .where('museums_id',museumId)
     .where('floor',floor);
+    //console.log(arModels);
     return arModels;
   }
 
