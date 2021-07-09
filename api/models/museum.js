@@ -1,12 +1,9 @@
 const Knex  = require('knex');
 const { Model } = require('objection')
 const Armodel = require ('./armodel');
+const Target = require('./target');
 
-const connection = require('../../knexfile')
 
-const knexConnection = Knex(connection)
-
-Model.knex(knexConnection);
 class Museum extends Model {
     static get tableName () {
       return 'museums';
@@ -21,11 +18,40 @@ class Museum extends Model {
             from: 'museums.id',
             to: 'armodels.museums_id'
           }
+        },
+        targets: {
+          relation: Model.HasManyRelation,
+          modelClass: Target,
+          join: {
+            from: 'museums.id',
+            to: 'targets.museums_id'
+          }
         }
       }
     }
   }
 
-module.exports = Museum;
+exports.getALLMuseums = async () =>{
+  const museums = await Museum.query();
+  return museums;
+}
+
+exports.getMuseum = async (museumId)=>{
+  const museum = await Museum.query().findById(museumId);
+  if(!museum){
+    throw new Error('Museum doesn not exsist');
+  }
+  return museum; 
+}
+
+exports.addMuseum = async (museumName,museumDescription,museumImage)=>{
+  const museum = await Museum.query().insert({
+    name: museumName,
+    description: museumDescription,
+    image: museumImage
+  });
+  return museum;
+}
+
   
   

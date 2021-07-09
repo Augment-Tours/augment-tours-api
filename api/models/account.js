@@ -3,11 +3,9 @@ const { Model } = require('objection')
 const Favorite= require('./favorite');
 const Armodel = require ('./armodel');
 
-const connection = require('../../knexfile')
+const bcrypt = require('bcrypt');
 
-const knexConnection = Knex(connection)
 
-Model.knex(knexConnection);
 
 class Account extends Model {
     static get tableName () {
@@ -36,5 +34,43 @@ class Account extends Model {
     }
   }
 
-module.exports = Account;
+  exports.registerUser = async (userName,userEmail,userPassword)=>{
+    const hashedPassword = await bcrypt.hash(userPassword, 12);
+    const user = await Account.query().insert({
+      name: userName,
+      email: userEmail,
+      password: hashedPassword,
+      isAdmin: false
+    });
+    return user;
+  }
 
+  exports.getAccount = async (accountID)=>{
+    const account = await Account.query().findById(accountID);
+    if(!account){
+      throw new Error('account doesn not exsist');
+    }
+
+    const userAccount = {
+      name: account.name,
+      email: account.email,
+      isAdmin: account.isAdmin
+    }
+    return userAccount; 
+  }
+
+  exports.getAccountEmail = async (accountEmail) => { 
+    const account = await Account.query().findOne({email: accountEmail});
+    if(!account){
+      throw new Error('account doesn not exsist');
+    }
+
+    const userAccount = {
+      name: account.name,
+      email: account.email,
+      isAdmin: account.isAdmin
+    }
+    return userAccount; 
+  }
+
+  

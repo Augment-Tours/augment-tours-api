@@ -4,9 +4,9 @@ const Armodel =  require('../models/armodel');
 
 const router = express.Router()
 
-router.get('/', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try{
-        const armodel = await Armodel.query();
+        const armodel = await Armodel.getArmodel(req.params.id);
         res.json(armodel)
     }
     catch(err){
@@ -14,5 +14,26 @@ router.get('/', async (req, res) => {
     }
     
   })
+
+router.get('/:museumId/:floor', async(req,res)=>{
+    try{
+        const armodels = Armodel.getArmodelsbyMuseumFloor(req.params.museumId,req.params.floor);
+        res.json(armodels);
+    }
+    catch(err){
+        console.log('error '+err);
+    }
+})
+
+router.post('/', async(req,res)=>{
+    try{
+        const newArmodel = req.body; 
+        const armodel = await Armodel.addArmodel(newArmodel.name, newArmodel.description, newArmodel.model, newArmodel.x_location,newArmodel.y_location, newArmodel.floor, newArmodel.museums_id);
+        res.json(armodel);
+    }
+    catch(err){
+        console.log('error '+err);
+    }
+})
 
   module.exports = router;
