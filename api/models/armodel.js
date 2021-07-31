@@ -51,8 +51,12 @@ class Armodel extends Model {
     return arModels;
   }
 
+  exports.getAllArModels = async ()=>{
+    const arModels = await Armodel.query();
+    return arModels;
+  };
 
-  exports.addArmodel = async (arName,arDescription ,arModelurl,arXlocation,arYlocation,arFloor,arMuseumId)=>{
+  exports.addArmodel = async (arName,arDescription ,arModelurl,arXlocation,arYlocation,arFloor,arMuseumId,arImage,arXscale,arYscale,arZscale)=>{
     const museum = await Museum.getMuseum(arMuseumId);
     if(!museum){
       throw new Error('Museum does not exsist');
@@ -64,7 +68,11 @@ class Armodel extends Model {
       x_location: arXlocation,
       y_location: arYlocation,
       floor:arFloor,
-      museums_id: arMuseumId
+      museums_id: arMuseumId,
+      image: arImage,
+      x_scale: arXscale,
+      y_scale: arYscale,
+      z_scale: arZscale    
     });
     return armodel;
   }
