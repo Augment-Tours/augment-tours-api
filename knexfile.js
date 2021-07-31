@@ -6,8 +6,8 @@ module.exports = {
     client: 'pg',
     connection: {
       host: 'localhost',
-      user: 'augment', // Aymen's -> 'postgres'
-      password: 'Welcome1',
+      user: process.env.USERNAME, // Aymen's -> 'postgres'
+      password: process.env.PASSWORD, // 
       database: 'augment_tours'
     },
     pool: {
