@@ -51,6 +51,10 @@ class Armodel extends Model {
     return arModels;
   }
 
+  exports.getAllArModels = async ()=>{
+    const arModels = await Armodel.query();
+    return arModels;
+  };
 
   exports.addArmodel = async (arName,arDescription ,arModelurl,arXlocation,arYlocation,arFloor,arMuseumId)=>{
     const museum = await Museum.getMuseum(arMuseumId);
