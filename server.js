@@ -1,3 +1,4 @@
+require('dotenv').config()
 const museums = require('./api/controllers/museumController');
 const accounts = require('./api/controllers/accountController');
 const armodels = require('./api/controllers/armodelController');
