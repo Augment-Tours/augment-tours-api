@@ -35,12 +35,21 @@ class Target extends Model {
   exports.getTargetsByMuseum = async(museumId)=>{
     const targets = await Target
       .query()
-      .where('museums_id',museumId);
+      .where('museums_id',museumId)
+      .where('type','armodels');
 
     return targets;
   }
 
-  exports.addTarget = async (targetInformation,targetModel ,targetXlocation,targetYlocation,targetFloor,museumId)=>{
+  exports.getTargetsByType = async(type)=>{
+    const targets = await Target
+      .query()
+      .where('type',type);
+
+    return targets;
+  }
+
+  exports.addTarget = async (targetInformation,targetModel ,targetXlocation,targetYlocation,targetFloor,museumId, targetType)=>{
     const museum = await Museum.getMuseum(museumId);
     if(!museum){
       throw new Error('Museum does not exsist');
@@ -51,7 +60,8 @@ class Target extends Model {
       x_location: targetXlocation,
       y_location: targetYlocation,
       floor:targetFloor,
-      museums_id: museumId
+      museums_id: museumId,
+      type: targetType
     });
     return target;
   }

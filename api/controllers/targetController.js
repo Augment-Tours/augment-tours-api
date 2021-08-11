@@ -25,10 +25,20 @@ router.get('/museums/:museums_id',async(req,res) => {
     }
 })
 
+router.get('/type/:type',async(req,res) => { 
+    try{ 
+        const targets = await Target.getTargetsByType(req.params.type);
+        res.json(targets);
+    }
+    catch(err){
+        console.log('error '+err);
+    }
+})
+
   router.post('/', async(req,res)=>{
     try{
         const newTarget = req.body;
-        const target = await Target.addTarget(newTarget.information,newTarget.model,newTarget.x_location,newTarget.y_location,newTarget.floor,newTarget.museums_id);
+        const target = await Target.addTarget(newTarget.information,newTarget.model,newTarget.x_location,newTarget.y_location,newTarget.floor,newTarget.museums_id,newTarget.type);
         res.json(target);
     }
     catch(err){
