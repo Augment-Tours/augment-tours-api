@@ -1,4 +1,5 @@
 const express = require('express')
+const { URL } = require('url');
 
 const Favorite =  require('../models/favorite');
 
@@ -17,8 +18,7 @@ router.get('/:accountId', async (req, res) => {
 
 router.get('/getBy/email/', async (req, res) => {
     try{
-        console.log(req.body.email);
-        const favorites = await Favorite.getFavoriteByEmail(req.body.email);
+        const favorites = await Favorite.getFavoriteByEmail(req.query.email);
         res.json(favorites);
     }
     catch(err){
