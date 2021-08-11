@@ -51,3 +51,12 @@ exports.getFavoriteByAccount = async (userId) => {
     .select("favorites.*", "armodels.*");
   return favorites;
 };
+
+exports.getFavoriteByEmail = async (email) => {
+  const favorites = await Favorite.query()
+    .join("armodels", "favorites.armodels_id", "armodels.id")
+    .join("accounts", "favorites.accounts_id", "accounts.id")
+    .where("email", email)
+    .select("favorites.*", "armodels.*", "accounts.*");
+  return favorites;
+}
