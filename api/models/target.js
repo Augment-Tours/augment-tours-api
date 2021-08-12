@@ -27,7 +27,7 @@ class Target extends Model {
   exports.getTarget = async(targetId)=>{
     const target = await Target.query().findById(targetId);
     if(!target){
-      throw new Error('Target does not exsist');
+      throw new Error('Target does not exist');
     }
     return target;
   };
