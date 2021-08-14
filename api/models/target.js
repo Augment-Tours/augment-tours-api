@@ -22,6 +22,19 @@ class Target extends Model {
     };
   }
 }
+  exports.getTarget = async(targetId)=>{
+    const target = await Target.query().findById(targetId);
+    if(!target){
+      throw new Error('Target does not exist');
+    }
+    return target;
+  };
+
+  exports.getTargetsByMuseum = async(museumId)=>{
+    const targets = await Target
+      .query()
+      .where('museums_id',museumId)
+      .where('type','armodels');
 
 exports.getTarget = async (targetId) => {
   const target = await Target.query().findById(targetId);
