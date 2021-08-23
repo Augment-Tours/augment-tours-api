@@ -15,6 +15,16 @@ router.get('/:id', async (req, res) => {
     
   })
 
+router.get('/getBy/email', async (req, res) => {
+    try{
+        const account = await Account.getAccountEmail(req.query.email);
+        res.json(account);
+    }
+    catch(err){
+        console.log('error ' + err);
+    }
+})
+
 router.post('/', async(req,res)=>{
     try{ 
         const newAccount = req.body;
