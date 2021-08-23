@@ -27,6 +27,16 @@ router.get('/getBy/email/', async (req, res) => {
     
 })
 
+router.get('/:acountId/:arId',async(req, res) =>{
+    try{ 
+        const favorite = await Favorite.getFavoriteByAccountAndModel(req.params.acountId,req.params.arId);
+        res.json(favorite);
+    }
+    catch(err){
+        console.log('error' + err);
+    }
+})
+
 
 router.post('/', async(req,res)=>{
     try{
