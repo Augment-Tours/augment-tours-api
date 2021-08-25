@@ -28,7 +28,7 @@ router.get('/getBy/email', async (req, res) => {
 router.post('/', async(req,res)=>{
     try{ 
         const newAccount = req.body;
-        const account = await Account.registerUser(newAccount.name,newAccount.email,newAccount.password);
+        const account = await Account.registerUser(newAccount.name,newAccount.email,newAccount.password,newAccount.isAdmin);
         res.json(account);
     }
     catch(err){
