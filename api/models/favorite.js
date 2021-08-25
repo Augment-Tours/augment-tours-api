@@ -52,6 +52,18 @@ exports.getFavoriteByAccount = async (userId) => {
   return favorites;
 };
 
+exports.getFavoriteByAccountAndModel = async (userId,ARId) => {
+  const favorite = await Favorite.query()
+  .where("accounts_id",userId)
+  .where("armodels_id",ARId);
+
+  
+  if(favorite.length === 0){
+    return false;
+  }
+  return true;
+}
+
 exports.getFavoriteByEmail = async (email) => {
   const favorites = await Favorite.query()
     .join("armodels", "favorites.armodels_id", "armodels.id")
