@@ -73,4 +73,4 @@ exports.addTarget = async (
     type: targetType,
   });
   return target;
-}};
+};

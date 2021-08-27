@@ -15,6 +15,16 @@ router.get('/:id', async (req, res) => {
     
   })
 
+router.get('/', async (req, res) => {
+    try {
+        const accounts = await Account.getAllAccounts();
+        res.json(accounts);
+    }
+    catch(err) {
+        console.log("error " + err);
+    }
+})
+
 router.get('/getBy/email', async (req, res) => {
     try{
         const account = await Account.getAccountEmail(req.query.email);

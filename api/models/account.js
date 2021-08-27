@@ -71,3 +71,8 @@ exports.getAccountEmail = async (accountEmail) => {
   };
   return userAccount;
 };
+
+exports.getAllAccounts = async () => {
+  const accounts = await Account.query();
+  return accounts;
+}
