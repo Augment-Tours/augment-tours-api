@@ -44,6 +44,13 @@ exports.addFavorite = async (armodelId, accountId) => {
   return favorite;
 };
 
+exports.removeFavorite = async (armodelId, accountId) => {
+  const account = Account.getAccount(accountId);
+  return Favorite.query()
+    .where({ accounts_id: accountId, armodels_id: armodelId })
+    .delete()
+};
+
 exports.getFavoriteByAccount = async (userId) => {
   const favorites = await Favorite.query()
     .join("armodels", "favorites.armodels_id", "armodels.id")
@@ -52,17 +59,16 @@ exports.getFavoriteByAccount = async (userId) => {
   return favorites;
 };
 
-exports.getFavoriteByAccountAndModel = async (userId,ARId) => {
+exports.getFavoriteByAccountAndModel = async (userId, ARId) => {
   const favorite = await Favorite.query()
-  .where("accounts_id",userId)
-  .where("armodels_id",ARId);
+    .where("accounts_id", userId)
+    .andWhere("armodels_id", ARId);
 
-  
-  if(favorite.length === 0){
+  if (favorite.length === 0) {
     return false;
   }
   return true;
-}
+};
 
 exports.getFavoriteByEmail = async (email) => {
   const favorites = await Favorite.query()
@@ -71,4 +77,4 @@ exports.getFavoriteByEmail = async (email) => {
     .where("email", email)
     .select("favorites.*", "armodels.*", "accounts.*");
   return favorites;
-}
+};
