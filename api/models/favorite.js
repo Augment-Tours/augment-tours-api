@@ -69,6 +69,6 @@ exports.getFavoriteByEmail = async (email) => {
     .join("armodels", "favorites.armodels_id", "armodels.id")
     .join("accounts", "favorites.accounts_id", "accounts.id")
     .where("email", email)
-    .select("favorites.*", "armodels.*", "accounts.*");
+    .select("favorites.*", "accounts.*", "armodels.*");
   return favorites;
 }
