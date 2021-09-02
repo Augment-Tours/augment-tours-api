@@ -46,6 +46,7 @@ router.post("/", async (req, res) => {
       newArmodel.model,
       newArmodel.x_location,
       newArmodel.y_location,
+      newArmodel.z_location,
       newArmodel.floor,
       newArmodel.museums_id,
       newArmodel.image,

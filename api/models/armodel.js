@@ -56,7 +56,7 @@ class Armodel extends Model {
     return arModels;
   };
 
-  exports.addArmodel = async (arName,arDescription ,arModelurl,arXlocation,arYlocation,arFloor,arMuseumId,arImage,arXscale,arYscale,arZscale)=>{
+  exports.addArmodel = async (arName,arDescription ,arModelurl,arXlocation,arYlocation, arZlocation, arFloor,arMuseumId,arImage,arXscale,arYscale,arZscale)=>{
     const museum = await Museum.getMuseum(arMuseumId);
     if(!museum){
       throw new Error('Museum does not exsist');
@@ -67,6 +67,7 @@ class Armodel extends Model {
       model: arModelurl,
       x_location: arXlocation,
       y_location: arYlocation,
+      z_location: arZlocation,
       floor:arFloor,
       museums_id: arMuseumId,
       image: arImage,
