@@ -33,13 +33,51 @@ class Armodel extends Model {
 
 exports.getArmodel = async (armodelId) => {
   const armodel = await Armodel.query()
+    .findById(armodelId)
     .select("armodels.*", "museums.name as museumName")
-    .innerJoin("museums", "armodels.museums_id", "museums.id")
-    .findById(armodelId);
+    .innerJoin("museums", "armodels.museums_id", "museums.id");
   if (!armodel) {
     throw new Error("AR Model doesn not exsist");
   }
   return armodel;
+};
+
+exports.updateArmodels = async (
+  armodelId,
+  arName,
+  arDescription,
+  arModelurl,
+  arXlocation,
+  arYlocation,
+  arZlocation,
+  arFloor,
+  arMuseumId,
+  arImage,
+  arXscale,
+  arYscale,
+  arZscale
+) => {
+  const armodel = await Armodel.query().findById(armodelId);
+  if (!armodel) {
+    throw new Error("AR Model doesn not exsist");
+  }
+
+  const updatedAR = await Armodel.query().findById(armodelId).patch({
+    name: arName,
+    description: arDescription,
+    model: arModelurl,
+    x_location: arXlocation,
+    y_location: arYlocation,
+    z_location: arZlocation,
+    floor: arFloor,
+    museums_id: arMuseumId,
+    image: arImage,
+    x_scale: arXscale,
+    y_scale: arYscale,
+    z_scale: arZscale,
+  });
+
+  return updatedAR;
 };
 
 exports.getArmodelsbyMuseumFloor = async (museumId, floor) => {
@@ -49,13 +87,6 @@ exports.getArmodelsbyMuseumFloor = async (museumId, floor) => {
     .where("museums_id", museumId)
     .where("floor", floor);
   //console.log(arModels);
-  return arModels;
-};
-
-exports.getAllArModels = async () => {
-  const arModels = await Armodel.query()
-    .select("armodels.*", "museums.name as museumName")
-    .innerJoin("museums", "armodels.museums_id", "museums.id");
   return arModels;
 };
 
@@ -92,4 +123,11 @@ exports.addArmodel = async (
     z_scale: arZscale,
   });
   return armodel;
+};
+
+exports.getAllArModels = async () => {
+  const arModels = await Armodel.query()
+    .select("armodels.*", "museums.name as museumName")
+    .innerJoin("museums", "armodels.museums_id", "museums.id");
+  return arModels;
 };
