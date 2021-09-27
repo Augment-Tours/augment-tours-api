@@ -1,12 +1,12 @@
-const Knex = require('knex');
-const { Model } = require('objection');
-const Favorite = require('./favorite');
-const Account = require('./armodel');
-const Museum = require('./museum');
+const Knex = require("knex");
+const { Model } = require("objection");
+const Favorite = require("./favorite");
+const Account = require("./armodel");
+const Museum = require("./museum");
 
 class Target extends Model {
   static get tableName() {
-    return 'targets';
+    return "targets";
   }
 
   static get relationMappings() {
@@ -15,8 +15,8 @@ class Target extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: Museum,
         join: {
-          from: 'targets.museums_id',
-          to: 'museums.id',
+          from: "targets.museums_id",
+          to: "museums.id",
         },
       },
     };
@@ -24,28 +24,33 @@ class Target extends Model {
 }
 
 exports.getTarget = async (targetId) => {
-  const target = await Target.query().findById(targetId);
+  const target = await Target.query()
+    .findById(targetId)
+    .select("targets.*", "museums.name as museumName")
+    .innerJoin("museums", "targets.museums_id", "museums.id");
   if (!target) {
-    throw new Error('Target does not exsist');
+    throw new Error("Target does not exsist");
   }
   return target;
 };
 
 exports.getAllTargets = async () => {
-  const targets = await Target.query();
+  const targets = await Target.query()
+    .select("targets.*", "museums.name as museumName")
+    .innerJoin("museums", "targets.museums_id", "museums.id");
   return targets;
 };
 
 exports.getTargetsByMuseum = async (museumId) => {
   const targets = await Target.query()
-    .where('museums_id', museumId)
-    .where('type', 'armodels');
+    .where("museums_id", museumId)
+    .where("type", "armodels");
 
   return targets;
 };
 
 exports.getTargetsByType = async (type) => {
-  const targets = await Target.query().where('type', type);
+  const targets = await Target.query().where("type", type);
 
   return targets;
 };
@@ -61,7 +66,7 @@ exports.addTarget = async (
 ) => {
   const museum = await Museum.getMuseum(museumId);
   if (!museum) {
-    throw new Error('Museum does not exsist');
+    throw new Error("Museum does not exsist");
   }
   const target = await Target.query().insert({
     information: targetInformation,
