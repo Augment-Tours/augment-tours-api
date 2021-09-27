@@ -46,6 +46,7 @@ exports.updateArmodels = async (
   arModelurl,
   arXlocation,
   arYlocation,
+  arZlocation,
   arFloor,
   arMuseumId,
   arImage,
@@ -64,6 +65,7 @@ exports.updateArmodels = async (
     model: arModelurl,
     x_location: arXlocation,
     y_location: arYlocation,
+    z_location: arZlocation,
     floor: arFloor,
     museums_id: arMuseumId,
     image: arImage,
@@ -84,18 +86,13 @@ exports.getArmodelsbyMuseumFloor = async (museumId, floor) => {
   //console.log(arModels);
   return arModels;
 };
-
-exports.getAllArModels = async () => {
-  const arModels = await Armodel.query();
-  return arModels;
-};
-
 exports.addArmodel = async (
   arName,
   arDescription,
   arModelurl,
   arXlocation,
   arYlocation,
+  arZlocation,
   arFloor,
   arMuseumId,
   arImage,
@@ -113,6 +110,7 @@ exports.addArmodel = async (
     model: arModelurl,
     x_location: arXlocation,
     y_location: arYlocation,
+    z_location: arZlocation,
     floor: arFloor,
     museums_id: arMuseumId,
     image: arImage,
@@ -121,4 +119,9 @@ exports.addArmodel = async (
     z_scale: arZscale,
   });
   return armodel;
+};
+
+exports.getAllArModels = async () => {
+  const arModels = await Armodel.query();
+  return arModels;
 };
